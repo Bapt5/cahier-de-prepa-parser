@@ -36,12 +36,16 @@ class File:
 
         self.extension = match.group('extension') if match.group('extension') != "sans ext" else None
 
+        # add extension to name
+        if self.extension:
+            self.name += f".{self.extension}"
+
         self.date = datetime.datetime.strptime(match.group('date'), "%d/%m/%Y").date() if match.group('date') else None
         
         unit = match.group('unit')
         self.size = int(match.group('size')) * self.unit_to_bytes[unit] if match.group('size') else None
 
-    def download(self, path: str = None) -> None:
+    def download(self, path: str = None) -> str:
         req = self._client._session.get(self.url, stream=True)
 
         if path is None:
@@ -49,12 +53,11 @@ class File:
         else:
             path += f"/{self.name}"
 
-        if self.extension:
-            path += f".{self.extension}"
-
         with open(path, 'wb') as file:
             for chunk in req.iter_content(chunk_size=1024):
                 file.write(chunk)
+        
+        return path
 
     def __repr__(self) -> str:
         return f"File(name={self.name}, extension={self.extension}, date={self.date}, size={self.size})"
@@ -91,7 +94,8 @@ class Folder:
             self.nb_files = int(match.group('files')) if match.group('files') else 0
             self.nb_folders = int(match.group('folders')) if match.group('folders') else 0
 
-    def get_content(self):
+    def get_content(self) -> tuple[list['Folder'], list['File']]:
+        """Renvoie une liste de dossiers et une liste de fichiers"""
         req = self._client._session.get(self.url)
         soup = bs4.BeautifulSoup(req.text, 'html.parser')
 
