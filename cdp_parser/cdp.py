@@ -37,7 +37,7 @@ class File:
         self.extension = match.group('extension') if match.group('extension') != "sans ext" else None
 
         # add extension to name
-        if self.extension:
+        if self.extension and not self.name.endswith(f".{self.extension}"):
             self.name += f".{self.extension}"
 
         self.date = datetime.datetime.strptime(match.group('date'), "%d/%m/%Y").date() if match.group('date') else None
