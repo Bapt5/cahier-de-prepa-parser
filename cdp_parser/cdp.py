@@ -14,6 +14,17 @@ class File:
     }
 
     def __init__(self, name: str, url: str, infos: str, path, client) -> None:
+        # remove forbidden characters
+        name = name.replace('/', '_')
+        name = name.replace('\\', '_')
+        name = name.replace(':', '_')
+        name = name.replace('*', '_')
+        name = name.replace('?', '_')
+        name = name.replace('"', '_')
+        name = name.replace('<', '_')
+        name = name.replace('>', '_')
+        name = name.replace('|', '_')
+
         self.name: str = name
         self.url: str = url
         self.extension: str = None
@@ -65,6 +76,17 @@ class File:
 class Folder:
 
     def __init__(self, name: str, url: str, content: str, path, client) -> None:
+        # remove forbidden characters
+        name = name.replace('/', '_')
+        name = name.replace('\\', '_')
+        name = name.replace(':', '_')
+        name = name.replace('*', '_')
+        name = name.replace('?', '_')
+        name = name.replace('"', '_')
+        name = name.replace('<', '_')
+        name = name.replace('>', '_')
+        name = name.replace('|', '_')
+
         self.name: str = name
         self.url: str = url
         self.nb_files: int = None
