@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="cahier-de-prepa-parser",
-    version="1.0.0",
+    version="1.0.1",
     description="Python parser pour Cahier de Prépa",
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords = ["cahier de prépa", "parser"],
     url="https://www.github.com/Bapt5/cahier-de-prepa-parser",
-    download_url="https://github.com/Bapt5/cahier-de-prepa-parser/archive/refs/tags/v1.0.0.tar.gz",
+    download_url="https://github.com/Bapt5/cahier-de-prepa-parser/archive/refs/tags/v1.0.1.tar.gz",
     author="Bapt5",
     author_email='drouillet.baptiste@gmail.com',
     license="MPL2.0",

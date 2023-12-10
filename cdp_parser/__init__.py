@@ -9,6 +9,6 @@ This whole package is licensed under the MPL2.0 license
 __title__ = "cahier-de-prepa-parser"
 __author__ = "Bapt5"
 __license__ = "MPL2.0"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from .cdp import Client, File, Folder
