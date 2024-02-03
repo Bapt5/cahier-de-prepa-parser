@@ -145,8 +145,16 @@ class Folder:
             if folder_tag.find_previous('h3', text='Documents récents') is not None:
                 continue
 
-            folder_name = folder_tag.find('span', {'class': 'nom'}).text
-            folder_url = folder_tag.find('a').get('href')
+            span_name = folder_tag.find('span', {'class': 'nom'})
+            if span_name is None:
+                continue
+            folder_name = span_name.text
+
+            a_tag = folder_tag.find('a')
+            if a_tag is None:
+                continue
+            folder_url = a_tag.get('href')
+
             folder_content = folder_tag.find('span', {'class': 'repcontenu'})
 
             if folder_content is None:
@@ -180,10 +188,21 @@ class Folder:
             # Si il fait partie des documents récents (<h3>Documents récents</h3> avant)
             if file_tag.find_previous('h3', text='Documents récents') is not None:
                 continue
+            
+            span_name = file_tag.find('span', {'class': 'nom'})
+            if span_name is None:
+                continue
+            file_name = span_name.text
 
-            file_name = file_tag.find('span', {'class': 'nom'}).text
-            file_url = file_tag.find('a').get('href')
-            file_infos = file_tag.find('span', {'class': 'docdonnees'}).text
+            a_tag = file_tag.find('a')
+            if a_tag is None:
+                continue
+            file_url = a_tag.get('href')
+
+            span_infos = file_tag.find('span', {'class': 'docdonnees'})
+            if span_infos is None:
+                continue
+            file_infos = span_infos.text
 
             files.append(
                 File(
